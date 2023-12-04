@@ -2,10 +2,14 @@ const validateBody = require("./validateBody");
 const isValidId = require("./isValidId");
 const handleMongooseError = require("./handleMongooseError");
 const authenticate = require("./authenticate")
+const upload = require("./upload")
+const isOwnerContact = require("./isOwnerContact")
 
 module.exports = {
     validateBody,
     isValidId,
     handleMongooseError,
-    authenticate
+    authenticate,
+    upload,
+    isOwnerContact
 }
