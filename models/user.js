@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const {handleMongooseError} = require("../helpers");
+const { handleMongooseError } = require("../helpers");
 
 const emailRegexp = /^([A-Za-z0-9_\-.+])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/;
 
@@ -43,12 +43,17 @@ const loginSchema = Joi.object({
 
 const updateSubscriptionSchema = Joi.object({
     subscription: Joi.string().valid("starter", "pro", "business").required(),
-  })
+})
+
+const updateAvatarSchema = Joi.object({
+    avatarURL: Joi.string().required(),
+})
 
 const schemas = {
     registerSchema,
     loginSchema,
     updateSubscriptionSchema,
+    updateAvatarSchema,
 }
 
 const User = model("user", userSchema);
