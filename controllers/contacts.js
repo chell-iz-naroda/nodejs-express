@@ -11,11 +11,13 @@ const listContacts = async (req, res) => {
     favorite !== undefined
     ?  res.json(await Contact.find({owner, favorite}, "-createdAt -updatedAt", {skip, limit}).populate("owner", "email"))
     :  res.json(await Contact.find({owner}, "-createdAt -updatedAt", {skip, limit}).populate("owner", "email"));
+
 }
 
 const getContactById = async (req, res) => {
     const { contactId } = req.params;
     const result = await Contact.findById(contactId);
+    console.log(result.owner);
     if (!result) {
         throw HttpError(404, "Not found");
     }

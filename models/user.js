@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const {handleMongooseError} = require("../helpers");
+const { handleMongooseError } = require("../helpers");
 
 const emailRegexp = /^([A-Za-z0-9_\-.+])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/;
 
@@ -23,13 +23,15 @@ const userSchema = new Schema({
     token: {
         type: String,
         default: ""
+    },
+    avatarURL: {
+        type: String
     }
 }, { versionKey: false, timestamps: true });
 
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
-    name: Joi.string().required(),
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(6).required(),
 })
@@ -41,12 +43,17 @@ const loginSchema = Joi.object({
 
 const updateSubscriptionSchema = Joi.object({
     subscription: Joi.string().valid("starter", "pro", "business").required(),
-  })
+})
+
+const updateAvatarSchema = Joi.object({
+    avatarURL: Joi.string().required(),
+})
 
 const schemas = {
     registerSchema,
     loginSchema,
     updateSubscriptionSchema,
+    updateAvatarSchema,
 }
 
 const User = model("user", userSchema);
